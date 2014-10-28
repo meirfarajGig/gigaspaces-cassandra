@@ -19,53 +19,39 @@ import com.gigaspaces.internal.reflection.IConstructor;
 import com.gigaspaces.internal.reflection.IGetterMethod;
 import com.gigaspaces.internal.reflection.ISetterMethod;
 import com.gigaspaces.internal.reflection.ReflectionUtil;
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Cache for holding fast reflection based getters/setters/constructors.
  * Instance will be created on demand and only once.
- * 
+ *
  * @since 9.1.1
  * @author Dan Kilman
  */
 public class ProcedureCache {
 
-    private final ConcurrentMap<Method, IGetterMethod<Object>> getters;
-    private final ConcurrentMap<Method, ISetterMethod<Object>> setters;
-    private final ConcurrentMap<Constructor<Object>, IConstructor<Object>> constructors;
-    
-    public ProcedureCache() {
-        
-        getters = new MapMaker().makeComputingMap(new Function<Method, IGetterMethod<Object>>() {
-            public IGetterMethod<Object> apply(Method getterMethod) {
-                return ReflectionUtil.createGetterMethod(getterMethod);
-            }});
-        
-        setters = new MapMaker().makeComputingMap(new Function<Method, ISetterMethod<Object>>() {
-            public ISetterMethod<Object> apply(Method getterMethod) {
-                return ReflectionUtil.createSetterMethod(getterMethod);
-            }});
+    private final ConcurrentHashMap<Method, IGetterMethod<Object>> getters;
+    private final ConcurrentHashMap<Method, ISetterMethod<Object>> setters;
+    private final ConcurrentHashMap<Constructor<Object>, IConstructor<Object>> constructors;
 
-        constructors = new MapMaker().makeComputingMap(new Function<Constructor<Object>, 
-                                                                                     IConstructor<Object>>() {
-            public IConstructor<Object> apply(Constructor<Object> constructor) {
-                return ReflectionUtil.createCtor(constructor);
-            }});
-        
+    public ProcedureCache() {
+        getters = new ConcurrentHashMap<Method, IGetterMethod<Object>>();
+        setters = new ConcurrentHashMap<Method, ISetterMethod<Object>>();
+        constructors = new ConcurrentHashMap<Constructor<Object>, IConstructor<Object>>();
     }
-    
+
     /**
      * @param getterMethod The {@link java.lang.reflect.Method} instance that matches a property getter.
-     * @return A matching {@link IGetterMethod} for this getter method.
+     * @return A matching {@link com.gigaspaces.internal.reflection.IGetterMethod} for this getter method.
      */
     public IGetterMethod<Object> getterMethodFor(Method getterMethod) {
         try {
-            return getters.get(getterMethod);
+            IGetterMethod<Object> possibleGetter = ReflectionUtil.createGetterMethod(getterMethod);
+            IGetterMethod<Object> currentGetter = getters.putIfAbsent(getterMethod, possibleGetter);
+            return currentGetter == null ? possibleGetter : currentGetter;
         } catch (Exception e) {
             throw new IllegalStateException("Reflection factory failed unexpectedly", e);
         }
@@ -74,11 +60,13 @@ public class ProcedureCache {
     /**
      *
      * @param setterMethod The {@link java.lang.reflect.Method} instance that matches a property setter.
-     * @return A matching {@link ISetterMethod} for this setter method.
+     * @return A matching {@link com.gigaspaces.internal.reflection.ISetterMethod} for this setter method.
      */
     public ISetterMethod<Object> setterMethodFor(Method setterMethod) {
         try {
-            return setters.get(setterMethod);
+            ISetterMethod<Object> possibleSetter = ReflectionUtil.createSetterMethod(setterMethod);
+            ISetterMethod<Object> currentSetter = setters.putIfAbsent(setterMethod, possibleSetter);
+            return currentSetter == null ? possibleSetter : currentSetter;
         } catch (Exception e) {
             throw new IllegalStateException("Reflection factory failed unexpectedly", e);
         }
@@ -87,14 +75,16 @@ public class ProcedureCache {
     /**
      *
      * @param constructor The default no-args {@link java.lang.reflect.Constructor} matching a POJO type
-     * @return A matching {@link IConstructor} for this contructor.
+     * @return A matching {@link com.gigaspaces.internal.reflection.IConstructor} for this contructor.
      */
     public IConstructor<Object> constructorFor(Constructor<Object> constructor) {
         try {
-            return constructors.get(constructor);
+            IConstructor<Object> possibleConst = ReflectionUtil.createCtor(constructor);
+            IConstructor<Object> currentConst = constructors.putIfAbsent(constructor, possibleConst);
+            return currentConst == null ? possibleConst : currentConst;
         } catch (Exception e) {
             throw new IllegalStateException("Reflection factory failed unexpectedly", e);
         }
     }
-    
+
 }
