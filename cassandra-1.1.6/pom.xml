@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cassandra-datasource</groupId>
-    <artifactId>cassandra-datasource</artifactId>
+    <groupId>org.openspaces</groupId>
+    <artifactId>xap-cassandra</artifactId>
     <version>10.1.0-SNAPSHOT</version>
 
     <repositories>
@@ -43,28 +43,24 @@
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-clientutil</artifactId>
             <version>${cassandraVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-thrift</artifactId>
             <version>${cassandraVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-jdbc</artifactId>
             <version>${cassandraJdbcVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hectorclient</groupId>
             <artifactId>hector-core</artifactId>
             <version>${hectorVersion}</version>
-            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -77,14 +73,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4jVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>${slf4jVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
