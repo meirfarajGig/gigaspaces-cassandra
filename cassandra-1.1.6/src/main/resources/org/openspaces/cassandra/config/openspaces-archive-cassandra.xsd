@@ -9,10 +9,10 @@
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
+
     <xsd:import namespace="http://www.springframework.org/schema/beans"/>
     <xsd:import namespace="http://www.springframework.org/schema/tool"/>
     <xsd:import namespace="http://www.openspaces.org/schema/core"/>
-    <xsd:import namespace="http://www.openspaces.org/schema/archive"/>
 
     <xsd:element name="cassandra-archive-handler">
         <xsd:annotation>
