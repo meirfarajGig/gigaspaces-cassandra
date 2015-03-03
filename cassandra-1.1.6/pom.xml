@@ -17,7 +17,7 @@
     </repositories>
 
     <properties>
-        <gsVersion>${project.version}</gsVersion>
+        <gsVersion>10.1.0-SNAPSHOT</gsVersion>
         <cassandraJdbcVersion>1.1.2</cassandraJdbcVersion>
         <hectorVersion>1.1-2</hectorVersion>
         <cassandraVersion>1.1.6</cassandraVersion>
