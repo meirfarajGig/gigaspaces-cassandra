@@ -42,18 +42,6 @@
 
         <dependency>
             <groupId>org.apache.cassandra</groupId>
-            <artifactId>cassandra-clientutil</artifactId>
-            <version>${cassandraVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.cassandra</groupId>
-            <artifactId>cassandra-thrift</artifactId>
-            <version>${cassandraVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-jdbc</artifactId>
             <version>${cassandraJdbcVersion}</version>
         </dependency>
