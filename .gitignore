@@ -1,1 +1,8 @@
 .qbcache/
+
+target/
+
+.idea/
+*.iml
+
+*.swp
