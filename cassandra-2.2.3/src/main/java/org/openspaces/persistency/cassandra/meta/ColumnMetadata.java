@@ -18,6 +18,7 @@ package org.openspaces.persistency.cassandra.meta;
 import antlr.ByteBuffer;
 import me.prettyprint.hector.api.Serializer;
 import org.openspaces.persistency.cassandra.meta.mapping.node.TypeNode;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 
 /**
  * A common interface for column based {@link TypeNode} implementations.
@@ -35,5 +36,5 @@ public interface ColumnMetadata {
     /**
      * @return The serializer to convert the column value from/to {@link ByteBuffer} representation.
      */
-    <T> Serializer<T> getSerializer();
+    PropertyValueSerializer getSerializer();
 }

@@ -22,9 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openspaces.archive.ArchiveOperationHandler;
 import org.openspaces.core.GigaSpace;
+import org.openspaces.persistency.cassandra.CassandraClient;
 import org.openspaces.persistency.cassandra.CassandraConsistencyLevel;
-import org.openspaces.persistency.cassandra.HectorCassandraClient;
-import org.openspaces.persistency.cassandra.HectorCassandraClientConfigurer;
 import org.openspaces.persistency.cassandra.error.SpaceCassandraException;
 import org.openspaces.persistency.cassandra.meta.ColumnFamilyMetadata;
 import org.openspaces.persistency.cassandra.meta.conversion.ColumnFamilyNameConverter;
@@ -60,63 +59,27 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
 
     //injected (required)
     private GigaSpace gigaSpace;
-    
+    private CassandraClient cassandraClient;
+
     //injected (overrides default value)
     private PropertyValueSerializer propertyValueSerializer;
     private FlattenedPropertiesFilter flattenedPropertiesFilter;
     private ColumnFamilyNameConverter columnFamilyNameConverter;
-    private String hosts;
-    private Integer port;
-    private String keyspace;
-    
+
     //lifecycle objects
-    private HectorCassandraClient hectorClient;
     private DefaultSpaceDocumentColumnFamilyMapper mapper;
 
-    private CassandraConsistencyLevel writeConsistency;
+    //private CassandraConsistencyLevel writeConsistency;
 
     @Required
     public void setGigaSpace(GigaSpace gigaSpace) {
         this.gigaSpace = gigaSpace;
     }
 
-    /**
-     * @param hosts - 
-     *      Comma separated list of Cassandra servers (ipaddresses or hostnames).
-     * @see HectorCassandraClientConfigurer#hosts(String)
-     */
     @Required
-	public void setHosts(String hosts) {
-		this.hosts = hosts;
-	}
-
-    /**
-     * @param port - 
-     *  Cassandra server ports. Assumes same port for all servers.
-     *  null means default port is used.
-     * @see HectorCassandraClientConfigurer#port(Integer)
-     */
-	public void setPort(Integer port) {
-		this.port = port;
-	}
-
-	/**
-	 * @param keyspace - the Cassandra keyspace name to connect to.
-	 * @see HectorCassandraClientConfigurer#keyspaceName(String)
-	 */
-	@Required
-	public void setKeyspace(String keyspace) {
-		this.keyspace = keyspace;
-	}
-	
-	/**
-	 * @param writeConsistency - defines the consistency level used when writing to Cassandra.
-	 * default is null (which is mapped to {@link CassandraConsistencyLevel#QUORUM} )
-	 * @see HectorCassandraClientConfigurer#writeConsistencyLevel(CassandraConsistencyLevel)
-	 */
-	public void setWriteConsistency(CassandraConsistencyLevel writeConsistency) {
-	    this.writeConsistency = writeConsistency;
-	}
+    public void setCassandraClient(CassandraClient cassandraClient) {
+        this.cassandraClient = cassandraClient;
+    }
 
 	/**
 	 * @see PropertyValueSerializer
@@ -155,20 +118,8 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
         return columnFamilyNameConverter;
     }
 
-    public String getHosts() {
-        return hosts;
-    }
-
-    public Integer getPort() {
-        return port;
-    }
-
-    public String getKeyspace() {
-        return keyspace;
-    }
-
     public CassandraConsistencyLevel getWriteConsistency() {
-        return writeConsistency;
+        return cassandraClient.getWriteConsistencyLevel();
     }
 
     @PostConstruct
@@ -179,22 +130,7 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
         }
         
         createMapper();
-        createHectorClient();
-        
     }
-
-	private void createHectorClient() {
-        
-        String clusterName = createHectorDefaultClusterName(hosts, port);
-        hectorClient = 
-            new HectorCassandraClientConfigurer()
-            .hosts(hosts)
-            .port(port)
-            .keyspaceName(keyspace)
-            .clusterName(clusterName)
-            .writeConsistencyLevel(writeConsistency)
-            .create();
-	}
 
 	private void createMapper() {
         final PropertyValueSerializer dynamicPropertyValueSerializer = null;
@@ -209,8 +145,8 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
     
     @PreDestroy
     public void destroy() {
-    	if (hectorClient != null) {
-    		hectorClient.close();
+    	if (cassandraClient != null) {
+    		cassandraClient.close();
     	}
     }
     
@@ -231,11 +167,11 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
             
             SpaceDocument spaceDoc = (SpaceDocument) object;
             String typeName = spaceDoc.getTypeName();
-            ColumnFamilyMetadata metadata = hectorClient.getColumnFamilyMetadata(typeName);
+            ColumnFamilyMetadata metadata = cassandraClient.getColumnFamilyMetadata(typeName);
             if (metadata == null) {
                 metadata = createColumnFamilyMetadata(typeName);
                 //thread safe call
-                hectorClient.createColumnFamilyIfNecessary(metadata, false /* persist metadata */);
+                cassandraClient.createColumnFamilyIfNecessary(metadata, false /* persist metadata */);
             }
 
             String keyName = metadata.getKeyName();
@@ -263,7 +199,7 @@ public class CassandraArchiveOperationHandler implements ArchiveOperationHandler
             if (logger.isTraceEnabled()) {
                 logger.trace("Writing to cassandra " + rows.size() + " objects");
             }
-            hectorClient.performBatchOperation(rows);
+            cassandraClient.performBatchOperation(rows);
         }
     }
 

@@ -32,7 +32,7 @@ public class CassandraSpaceSynchronizationEndpointConfigurer {
     protected PropertyValueSerializer dynamicPropertyValueSerializer;
     protected FlattenedPropertiesFilter flattenedPropertiesFilter;
     protected ColumnFamilyNameConverter columnFamilyNameConverter;
-    protected HectorCassandraClient hectorClient;
+    protected CassandraClient cassandraClient;
 
     /**
      * Optional. If set, all fixed properties with a type that is not primitive nor a common
@@ -90,12 +90,12 @@ public class CassandraSpaceSynchronizationEndpointConfigurer {
     }
 
     /**
-     * @param hectorClient an instance of {@link HectorCassandraClient}.
+     * @param cassandraClient an instance of {@link HectorCassandraClient}.
      * @return {@code this} instance.
      */
-    public CassandraSpaceSynchronizationEndpointConfigurer hectorClient(
-            HectorCassandraClient hectorClient) {
-        this.hectorClient = hectorClient;
+    public CassandraSpaceSynchronizationEndpointConfigurer cassandraClient(
+            CassandraClient cassandraClient) {
+        this.cassandraClient = cassandraClient;
         return this;
     }
 
@@ -108,7 +108,7 @@ public class CassandraSpaceSynchronizationEndpointConfigurer {
                                                          dynamicPropertyValueSerializer,
                                                          flattenedPropertiesFilter,
                                                          columnFamilyNameConverter,
-                                                         hectorClient);
+                                                         cassandraClient);
     }
     
 }

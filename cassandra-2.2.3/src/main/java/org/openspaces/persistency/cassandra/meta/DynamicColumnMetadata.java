@@ -17,6 +17,7 @@ package org.openspaces.persistency.cassandra.meta;
 
 import me.prettyprint.hector.api.Serializer;
 import org.openspaces.persistency.cassandra.meta.mapping.node.TypeNode;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 
 /**
  * A {@link TypeNode} implementation representing a dynamic column for which no metadata 
@@ -28,18 +29,18 @@ import org.openspaces.persistency.cassandra.meta.mapping.node.TypeNode;
 public class DynamicColumnMetadata extends AbstractColumnMetadata {
     
     private final String             fullName;
-    private final Serializer<Object> dynamicPropertyValueSerializer;
+    private final PropertyValueSerializer dynamicPropertyValueSerializer;
     
     public DynamicColumnMetadata(String parentFullName, 
             String name, 
-            Serializer<Object> dynamicPropertyValueSerializer) {
+            PropertyValueSerializer dynamicPropertyValueSerializer) {
         this.dynamicPropertyValueSerializer = dynamicPropertyValueSerializer;
         fullName = (parentFullName != null ? parentFullName + "." : "") + name;
     }
     
     public DynamicColumnMetadata(
             String fullName,
-            Serializer<Object> dynamicPropertyValueSerializer) {
+            PropertyValueSerializer dynamicPropertyValueSerializer) {
         this.fullName = fullName;
         this.dynamicPropertyValueSerializer = dynamicPropertyValueSerializer;
     }
@@ -50,7 +51,7 @@ public class DynamicColumnMetadata extends AbstractColumnMetadata {
     }
 
     @Override
-    public Serializer<Object> getSerializer() {
+    public PropertyValueSerializer getSerializer() {
         return dynamicPropertyValueSerializer;
     }
 

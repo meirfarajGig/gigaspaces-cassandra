@@ -3,9 +3,16 @@ package org.openspaces.persistency.cassandra;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.Session;
+import com.gigaspaces.document.SpaceDocument;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openspaces.persistency.cassandra.meta.ColumnFamilyMetadata;
+import org.openspaces.persistency.cassandra.meta.data.ColumnFamilyRow;
+import org.openspaces.persistency.cassandra.meta.mapping.SpaceDocumentColumnFamilyMapper;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * A wrapper around the DataStax Java Driver client library.
@@ -13,7 +20,7 @@ import org.springframework.util.StringUtils;
  * @since 11.0.0
  * @author Bartosz Stalewski
  */
-public class DataStaxCassandraClient {
+public class DataStaxCassandraClient implements CassandraClient {
 
     //private static final int SLEEP_BEFORE_RETRY = 1000 * 11;
 
@@ -76,6 +83,55 @@ public class DataStaxCassandraClient {
             }
             closed = true;
         }
+    }
+
+    public CassandraConsistencyLevel getReadConsistencyLevel() {
+        return null;
+    }
+
+    public CassandraConsistencyLevel getWriteConsistencyLevel() {
+        return null;
+    }
+
+    public void createMetadataColumnFamilyColumnFamilyIfNecessary() {
+
+    }
+
+    public ColumnFamilyMetadata getColumnFamilyMetadata(String typeName) {
+        return null;
+    }
+
+    public ColumnFamilyMetadata fetchColumnFamilyMetadata(String typeName, SpaceDocumentColumnFamilyMapper mapper) {
+        return null;
+    }
+
+    public SpaceDocument readDocmentByKey(SpaceDocumentColumnFamilyMapper mapper,
+                                            String typeName, Object keyValue) {
+        return null;
+    }
+
+    public Map<Object, SpaceDocument> readDocumentsByKeys(SpaceDocumentColumnFamilyMapper mapper,
+                                                            String typeName, Object[] keyValues) {
+        return null;
+    }
+
+    public Map<String,ColumnFamilyMetadata> getColumnFamiliesMetadata() {
+        return null;
+    }
+
+    public Map<String,ColumnFamilyMetadata> populateColumnFamiliesMetadata(SpaceDocumentColumnFamilyMapper mapper) {
+        return null;
+    }
+
+    public void createColumnFamilyIfNecessary(ColumnFamilyMetadata metadata, boolean shouldPersist) {
+    }
+
+    public void addIndexesToColumnFamily(String typeName, List<String> columnNames,
+                                         SpaceDocumentColumnFamilyMapper mapper) {
+
+    }
+
+    public void performBatchOperation(List<ColumnFamilyRow> rows) {
     }
 
     private void validateFields(String keyspaceName, String hosts, Integer port, Integer columnFamilyGcGraceSeconds,

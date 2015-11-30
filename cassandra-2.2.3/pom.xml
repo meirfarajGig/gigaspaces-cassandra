@@ -185,6 +185,7 @@
                     <argLine>-Xms1024m -Xmx1024m</argLine>
                     <threadCount>4</threadCount>
                     <includes>
+                        <include>**/itest/**/*Test.java</include>
                         <include>**/itest/**/CassandraTestSuite.java</include>
                         <include>**/itest/**/CassandaraArchiveOperationHandlerTest.java</include>
                         <include>**/itest/**/CassandaraFactoryBeansTest.java</include>

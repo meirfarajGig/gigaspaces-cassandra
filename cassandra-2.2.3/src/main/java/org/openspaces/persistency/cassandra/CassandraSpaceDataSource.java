@@ -64,7 +64,7 @@ public class CassandraSpaceDataSource extends ClusterInfoAwareSpaceDataSource {
     private final SpaceDocumentColumnFamilyMapper mapper;
 
     private final IResourcePool<ConnectionResource> connectionPool;
-    private final HectorCassandraClient hectorClient;
+    private final CassandraClient hectorClient;
 
     private final int                               batchLimit;
     private final CassandraConsistencyLevel readConsistencyLevel;
@@ -77,7 +77,7 @@ public class CassandraSpaceDataSource extends ClusterInfoAwareSpaceDataSource {
             PropertyValueSerializer fixedPropertyValueSerializer,
             PropertyValueSerializer dynamicPropertyValueSerializer,
             CassandraDataSource cassandraDataSource,
-            HectorCassandraClient hectorClient,
+            CassandraClient hectorClient,
             int minimumNumberOfConnections,
             int maximumNumberOfConnections,
             int batchLimit,
@@ -86,7 +86,7 @@ public class CassandraSpaceDataSource extends ClusterInfoAwareSpaceDataSource {
 			ClusterInfo clusterInfo	) {
         
         if (hectorClient == null) {
-            throw new IllegalArgumentException("hectorClient must be set and initiated");
+            throw new IllegalArgumentException("cassandraClient must be set and initiated");
         }
         
         if (cassandraDataSource == null) {

@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openspaces.persistency.cassandra.meta.conversion.ColumnFamilyNameConverter;
 import org.openspaces.persistency.cassandra.meta.mapping.node.TopLevelTypeNode;
 import org.openspaces.persistency.cassandra.meta.types.SerializerProvider;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertyValueSerializer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 import org.openspaces.persistency.support.SpaceTypeDescriptorContainer;
 
 import java.io.Externalizable;
@@ -47,7 +49,7 @@ public class ColumnFamilyMetadata implements Externalizable {
     private final transient Map<String, TypedColumnMetadata> columns          = new HashMap<String, TypedColumnMetadata>();
     private final transient Set<String>                      indexes          = new HashSet<String>();
     
-    private transient Serializer<?>                          keySerializer;
+    private transient PropertyValueSerializer                keySerializer;
     private transient String                                 typeName;
     private transient String                                 keyName;
     private transient Class<?>                               keyType;
@@ -82,7 +84,7 @@ public class ColumnFamilyMetadata implements Externalizable {
         typeName = topLevelTypeNode.getTypeName();
         keyName = topLevelTypeNode.getKeyName();
         keyType = topLevelTypeNode.getKeyType();
-        keySerializer = SerializerProvider.getSerializer(keyType);
+        keySerializer = DynamicPropertyValueSerializer.get();//SerializerProvider.getSerializer(keyType);
         columns.putAll(topLevelTypeNode.getAllTypedColumnMetadataChildren());
     }
     
@@ -106,7 +108,7 @@ public class ColumnFamilyMetadata implements Externalizable {
         return keyType;
     }
 
-    public Serializer<?> getKeySerializer() {
+    public PropertyValueSerializer getKeySerializer() {
         return keySerializer;
     }
 
@@ -127,7 +129,7 @@ public class ColumnFamilyMetadata implements Externalizable {
         return indexes;
     }
     
-    public void setFixedPropertySerializerForTypedColumn(Serializer<?> serializer) {
+    public void setFixedPropertySerializerForTypedColumn(PropertyValueSerializer serializer) {
         for (TypedColumnMetadata typeColumnMetadata : columns.values()) {
             // primitive types for fixed properties columns are always serialized
             // using native serialization

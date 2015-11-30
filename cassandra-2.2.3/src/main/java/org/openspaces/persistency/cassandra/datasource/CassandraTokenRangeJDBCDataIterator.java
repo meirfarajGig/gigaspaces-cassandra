@@ -18,7 +18,7 @@ package org.openspaces.persistency.cassandra.datasource;
 import com.gigaspaces.datasource.DataIterator;
 import com.gigaspaces.document.SpaceDocument;
 import com.gigaspaces.internal.utils.StringUtils;
-import me.prettyprint.hector.api.Serializer;
+//import me.prettyprint.hector.api.Serializer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openspaces.persistency.cassandra.CassandraConsistencyLevel;
@@ -31,6 +31,8 @@ import org.openspaces.persistency.cassandra.meta.data.ColumnFamilyRow;
 import org.openspaces.persistency.cassandra.meta.data.ColumnFamilyRow.ColumnFamilyRowType;
 import org.openspaces.persistency.cassandra.meta.mapping.SpaceDocumentColumnFamilyMapper;
 import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertySerializer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertyValueSerializer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 import org.openspaces.persistency.cassandra.pool.ConnectionResource;
 
 import java.nio.ByteBuffer;
@@ -250,7 +252,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
                 
                 result.propertyValues.add(entry.getValue());
                 
-                Serializer<Object> serailizer = getSerializer(entry.getKey());
+                PropertyValueSerializer serailizer = getSerializer(entry.getKey());
                 result.serializers.add(serailizer);
                 
                 propertyIndex++;
@@ -261,7 +263,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
             while (columnNamesMatcher.find()) {
                 String columnName = columnNamesMatcher.group(1);
                 
-                Serializer<Object> serailizer = getSerializer(columnName);
+                PropertyValueSerializer serailizer = getSerializer(columnName);
                 result.serializers.add(serailizer);
                 
                 selectSqlQuery = selectSqlQuery.replace(columnName, StringUtils.quote(columnName));
@@ -278,16 +280,15 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
     }
 
     @SuppressWarnings("unchecked")
-    private Serializer<Object> getSerializer(String columnName) {
-        Serializer<Object> serailizer;
+    //private Serializer<Object> getSerializer(String columnName) {
+    private PropertyValueSerializer getSerializer(String columnName) {
         if (columnFamilyMetadata.getKeyName().equals(columnName)) {
-            serailizer = (Serializer<Object>) columnFamilyMetadata.getKeySerializer();
+            return columnFamilyMetadata.getKeySerializer();
         } else if (columnFamilyMetadata.getColumns().containsKey(columnName)) {
-            serailizer = columnFamilyMetadata.getColumns().get(columnName).getSerializer();
+            return columnFamilyMetadata.getColumns().get(columnName).getSerializer();
         } else {
-            serailizer = DynamicPropertySerializer.get();
+            return DynamicPropertyValueSerializer.get();
         }
-        return serailizer;
     }
     
     private void prepareRangeAndLimitStatement(PreparedStatementData statementData, Object lastToken, long limit) {
@@ -317,8 +318,11 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
         for (int i = 0; i < statementData.propertyValues.size(); i++) {
             int index = i+1;
             Object propertyValue = statementData.propertyValues.get(i);
-            Serializer<Object> serializer = statementData.serializers.get(i);
-            byte[] serializedPropertyValue = serializer.toBytes(propertyValue);
+            PropertyValueSerializer serializer = statementData.serializers.get(i);
+            ByteBuffer byteBuffer = serializer.toByteBuffer(propertyValue);
+            byte[] serializedPropertyValue  = new byte[byteBuffer.remaining()];
+            byteBuffer.get(serializedPropertyValue , 0, serializedPropertyValue .length);
+            //byte[] serializedPropertyValue = serializer.toBytes(propertyValue);
             preparedStatement.setBytes(index, serializedPropertyValue);
         }
     }
@@ -362,7 +366,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
     private static class PreparedStatementData {
         // order matters
         // arrays list for random access
-        List<Serializer<Object>> serializers = new ArrayList<Serializer<Object>>();
+        List<PropertyValueSerializer> serializers = new ArrayList<PropertyValueSerializer>();
         List<Object> propertyValues = new ArrayList<Object>();
         String query;
     }

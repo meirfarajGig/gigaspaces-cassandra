@@ -293,6 +293,7 @@ public class DynamicPropertyValueSerializer implements PropertyValueSerializer {
     
     private ByteBuffer bigDecimalToByteBuffer(BigDecimal value) {
         byte[] bigIntBytes = value.unscaledValue().toByteArray();
+        //TODO: replace IntegerSerializer
         byte[] scaleBytes = IntegerSerializer.get().toBytes(value.scale());
         byte[] bytes = new byte[1 + scaleBytes.length + bigIntBytes.length];
         bytes[0] = TYPE_BIGDECIMAL;

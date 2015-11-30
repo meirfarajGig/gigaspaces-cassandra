@@ -88,7 +88,7 @@ abstract public class AbstractCassandraTest
                             return context.getCurrentNestingLevel() <= 10;
                         }
                     })
-                    .hectorClient(hectorClient).create();
+                    .cassandraClient(hectorClient).create();
         return syncInterceptor;
     }
 

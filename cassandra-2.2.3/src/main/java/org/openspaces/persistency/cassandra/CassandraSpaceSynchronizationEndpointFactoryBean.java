@@ -74,10 +74,10 @@ public class CassandraSpaceSynchronizationEndpointFactoryBean implements
     }
 
     /**
-     * @see CassandraSpaceSynchronizationEndpointConfigurer#hectorClient(HectorCassandraClient)
+     * @see CassandraSpaceSynchronizationEndpointConfigurer#cassandraClient(HectorCassandraClient)
      */
-    public void setHectorClient(HectorCassandraClient hectorClient) {
-        configurer.hectorClient(hectorClient);
+    public void setCassandraClient(CassandraClient cassandraClient) {
+        configurer.cassandraClient(cassandraClient);
     }
 
     @Override

@@ -22,6 +22,8 @@ import org.openspaces.persistency.cassandra.meta.mapping.node.TypeNode;
 import org.openspaces.persistency.cassandra.meta.mapping.node.TypeNodeContext;
 import org.openspaces.persistency.cassandra.meta.types.PrimitiveClassUtils;
 import org.openspaces.persistency.cassandra.meta.types.SerializerProvider;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertyValueSerializer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -40,7 +42,7 @@ public class TypedColumnMetadata extends AbstractColumnMetadata
     private static final long       serialVersionUID = 1L;
     public static final byte        SERIAL_VER       = Byte.MIN_VALUE;
 
-    private transient Serializer<?> serializer;
+    private transient PropertyValueSerializer serializer;
 
     private String                  fullName;
     private String                  name;
@@ -55,8 +57,8 @@ public class TypedColumnMetadata extends AbstractColumnMetadata
             String parentFullName, 
             String name, 
             Class<?> type, 
-            TypeNodeContext context, 
-            Serializer<Object> fixedPropertyValueSerializer) {
+            TypeNodeContext context,
+            PropertyValueSerializer fixedPropertyValueSerializer) {
         serializer = fixedPropertyValueSerializer;
         fullName = (parentFullName != null ? parentFullName + "." : "") + name;
         this.name = name;
@@ -67,7 +69,7 @@ public class TypedColumnMetadata extends AbstractColumnMetadata
     
     private void initFields() {
         if (serializer == null) {
-            serializer = SerializerProvider.getSerializer(type);
+            serializer = DynamicPropertyValueSerializer.get();
         }
     }
     
@@ -85,13 +87,14 @@ public class TypedColumnMetadata extends AbstractColumnMetadata
     public Class<?> getType() {
         return type;
     }
-    
-    @SuppressWarnings("unchecked")
-    public <T> Serializer<T> getSerializer() {
-        return (Serializer<T>)serializer;
+
+    //@SuppressWarnings("unchecked")
+    @Override
+    public PropertyValueSerializer getSerializer() {
+        return serializer;
     }
 
-    public void setSerializer(Serializer<?> serializer) {
+    public void setSerializer(PropertyValueSerializer serializer) {
         this.serializer = serializer;
     }
     

@@ -50,21 +50,21 @@ public class CassandraSpaceSynchronizationEndpoint
     private static final Log                      logger = LogFactory.getLog(CassandraSpaceSynchronizationEndpoint.class);
     
     private final SpaceDocumentColumnFamilyMapper mapper;
-    private final HectorCassandraClient           hectorClient;
+    private final CassandraClient cassandraClient;
 
     public CassandraSpaceSynchronizationEndpoint(
             PropertyValueSerializer fixedPropertyValueSerializer,
             PropertyValueSerializer dynamicPropertyValueSerializer,
             FlattenedPropertiesFilter flattenedPropertiesFilter,
             ColumnFamilyNameConverter columnFamilyNameConverter,
-            HectorCassandraClient hectorClient) {
+            CassandraClient cassandraClient) {
         
-        if (hectorClient == null) {
-            throw new IllegalArgumentException("hectorClient must be set");
+        if (cassandraClient == null) {
+            throw new IllegalArgumentException("cassandraClient must be set");
         }
         
-        this.hectorClient = hectorClient;
-        this.hectorClient.createMetadataColumnFamilyColumnFamilyIfNecessary();
+        this.cassandraClient = cassandraClient;
+        this.cassandraClient.createMetadataColumnFamilyColumnFamilyIfNecessary();
         
         mapper = new DefaultSpaceDocumentColumnFamilyMapper(fixedPropertyValueSerializer,
                                                             dynamicPropertyValueSerializer,                                                             
@@ -98,10 +98,10 @@ public class CassandraSpaceSynchronizationEndpoint
             
             SpaceDocument spaceDoc = dataSyncOperation.getDataAsDocument();
             String typeName = spaceDoc.getTypeName();
-            ColumnFamilyMetadata metadata = hectorClient.getColumnFamilyMetadata(typeName);
+            ColumnFamilyMetadata metadata = cassandraClient.getColumnFamilyMetadata(typeName);
 
             if (metadata == null) {
-                metadata = hectorClient.fetchColumnFamilyMetadata(typeName, mapper);
+                metadata = cassandraClient.fetchColumnFamilyMetadata(typeName, mapper);
                 if (metadata == null) {
                     throw new SpaceCassandraDataSourceException("Could not find column family for type name: "
                             + typeName, null);
@@ -162,7 +162,7 @@ public class CassandraSpaceSynchronizationEndpoint
         }
         
         for (List<ColumnFamilyRow> rows : cfToRows.values()) {
-            hectorClient.performBatchOperation(rows);
+            cassandraClient.performBatchOperation(rows);
         }
     }
 
@@ -172,7 +172,7 @@ public class CassandraSpaceSynchronizationEndpoint
         ColumnFamilyMetadata columnFamilyMetadata = 
                 mapper.toColumnFamilyMetadata(introduceTypeData.getTypeDescriptor());
         
-        hectorClient.createColumnFamilyIfNecessary(columnFamilyMetadata,
+        cassandraClient.createColumnFamilyIfNecessary(columnFamilyMetadata,
                                                    true /* shouldPersist */);
     }
     
@@ -192,7 +192,7 @@ public class CassandraSpaceSynchronizationEndpoint
             return;
         }
         
-        hectorClient.addIndexesToColumnFamily(typeName, indexes, mapper);
+        cassandraClient.addIndexesToColumnFamily(typeName, indexes, mapper);
     }
     
 }

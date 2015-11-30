@@ -23,6 +23,7 @@ import com.j_spaces.core.IJSpace;
 import junit.framework.Assert;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.cassandra.service.template.ColumnFamilyResult;
 import me.prettyprint.cassandra.service.template.ColumnFamilyRowMapper;
 import me.prettyprint.cassandra.service.template.ThriftColumnFamilyTemplate;
@@ -39,6 +40,7 @@ import org.openspaces.core.GigaSpaceConfigurer;
 import org.openspaces.core.space.UrlSpaceConfigurer;
 import org.openspaces.itest.persistency.cassandra.CassandraTestServer;
 import org.openspaces.persistency.cassandra.CassandraConsistencyLevel;
+import org.openspaces.persistency.cassandra.HectorCassandraClient;
 import org.openspaces.persistency.cassandra.archive.CassandraArchiveOperationHandler;
 import org.openspaces.persistency.cassandra.archive.CassandraArchiveOperationHandlerConfigurer;
 import org.openspaces.persistency.cassandra.error.SpaceCassandraException;
@@ -128,13 +130,11 @@ public class CassandaraArchiveOperationHandlerTest {
             final IJSpace space = urlSpaceConfigurer.create();
             gigaSpace = new GigaSpaceConfigurer(space).create();
 
-            archiveHandler = 
-            	new CassandraArchiveOperationHandlerConfigurer()
-	            .keyspace(server.getKeySpaceName())
-	        	.hosts(server.getHost())
-	        	.port(server.getPort())
-	        	.gigaSpace(gigaSpace)
-	            .create();
+			archiveHandler =
+				new CassandraArchiveOperationHandlerConfigurer()
+					.cassandraClient(null) // TODO: to make it compiling
+					.gigaSpace(gigaSpace)
+					.create();
             
             test(archiveHandler, gigaSpace);
         } finally {

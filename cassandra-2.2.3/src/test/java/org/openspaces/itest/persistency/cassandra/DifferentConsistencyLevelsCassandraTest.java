@@ -112,7 +112,7 @@ public class DifferentConsistencyLevelsCassandraTest extends AbstractCassandraTe
         CassandraDataSource ds = createCassandraDataSource();
         return new CassandraSpaceDataSourceConfigurer()
             .cassandraDataSource(ds)
-            .hectorClient(hectorClient)
+            .cassandraClient(hectorClient)
             .create();
     }
     

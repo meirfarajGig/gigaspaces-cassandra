@@ -69,8 +69,8 @@ public class CassandraSpaceDataSourceFactoryBean implements
     /**
      * @see CassandraSpaceDataSourceConfigurer#cassandraDataSource(CassandraDataSource)
      */
-    public void setHectorClient(HectorCassandraClient hectorClient) {
-        configurer.hectorClient(hectorClient);
+    public void setCassandraClient(CassandraClient cassandraClient) {
+        configurer.cassandraClient(cassandraClient);
     }
 
     /**

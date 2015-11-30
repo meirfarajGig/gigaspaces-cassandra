@@ -27,6 +27,7 @@ import org.openspaces.persistency.cassandra.meta.mapping.filter.FlattenedPropert
 import org.openspaces.persistency.cassandra.meta.mapping.filter.PojoTypeFlattenPropertiesFilter;
 import org.openspaces.persistency.cassandra.meta.types.SerializerProvider;
 import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertySerializer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.DynamicPropertyValueSerializer;
 import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializerHectorSerializerAdapter;
 import org.openspaces.persistency.support.ProcedureCache;
@@ -49,29 +50,23 @@ public class TypeNodeIntrospector {
 
     private final FlattenedPropertiesFilter flattenedPropertiesFilter;
 
-    private final Serializer<Object> fixedPropertyValueSerializer;
+    private final PropertyValueSerializer fixedPropertyValueSerializer;
 
-    private final Serializer<Object> dynamicPropertyValueSerializer;
+    private final PropertyValueSerializer dynamicPropertyValueSerializer;
     
     public TypeNodeIntrospector(
             PropertyValueSerializer fixedPropertyValueSerializer,
             PropertyValueSerializer dynamicPropertyValueSerializer,
             FlattenedPropertiesFilter flattenedPropertiesFilter) {
-        
-        // if this is null it means we infer the serializer for type
-        // using SerializerProvider
-        if (fixedPropertyValueSerializer == null) {
-            this.fixedPropertyValueSerializer = null;
-        } else {
-            this.fixedPropertyValueSerializer = new PropertyValueSerializerHectorSerializerAdapter(fixedPropertyValueSerializer);
-        }
-        
+
+        this.fixedPropertyValueSerializer = fixedPropertyValueSerializer;
+
         if (dynamicPropertyValueSerializer == null) {
-            this.dynamicPropertyValueSerializer = DynamicPropertySerializer.get();
+            this.dynamicPropertyValueSerializer = DynamicPropertyValueSerializer.get();
         } else {
-            this.dynamicPropertyValueSerializer = new PropertyValueSerializerHectorSerializerAdapter(dynamicPropertyValueSerializer);
+            this.dynamicPropertyValueSerializer = dynamicPropertyValueSerializer;
         }
-        
+
         if (flattenedPropertiesFilter == null) {
             this.flattenedPropertiesFilter = new DefaultFlattenedPropertiesFilter();
         } else {
@@ -79,11 +74,11 @@ public class TypeNodeIntrospector {
         }
     }
 
-    public Serializer<Object> getDynamicPropertyValueSerializer() {
+    public PropertyValueSerializer getDynamicPropertyValueSerializer() {
         return dynamicPropertyValueSerializer;
     }
 
-    public Serializer<Object> getFixedPropertyValueSerializer() {
+    public PropertyValueSerializer getFixedPropertyValueSerializer() {
         return fixedPropertyValueSerializer;
     }
     
@@ -180,7 +175,7 @@ public class TypeNodeIntrospector {
                                              name,
                                              dynamicPropertyValueSerializer);
         } else {
-            Serializer<Object> serializer = null;
+            PropertyValueSerializer serializer = null;
             // primitive types for fixed properties columns are always serialized
             // using native serialization
             if (!SerializerProvider.isCommonJavaType(type)) {

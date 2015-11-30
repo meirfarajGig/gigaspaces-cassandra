@@ -32,7 +32,7 @@ public class CassandraSpaceDataSourceConfigurer {
     protected PropertyValueSerializer fixedPropertyValueSerializer;
     protected PropertyValueSerializer dynamicPropertyValueSerializer;
     protected CassandraDataSource     cassandraDataSource;
-    protected HectorCassandraClient hectorClient;
+    protected CassandraClient         cassandraClient;
     protected int                     minimumNumberOfConnections = 5;
     protected int                     maximumNumberOfConnections = 30;
     protected int                     batchLimit                 = 10000;
@@ -82,12 +82,12 @@ public class CassandraSpaceDataSourceConfigurer {
     }
 
     /**
-     * @param hectorClient an instance of {@link HectorCassandraClient}.
+     * @param cassandraClient an instance of {@link CassandraClient}.
      * @return {@code this} instance.
      */
-    public CassandraSpaceDataSourceConfigurer hectorClient(
-            HectorCassandraClient hectorClient) {
-        this.hectorClient = hectorClient;
+    public CassandraSpaceDataSourceConfigurer cassandraClient(
+            CassandraClient cassandraClient) {
+        this.cassandraClient = cassandraClient;
         return this;
     }
 
@@ -168,7 +168,7 @@ public class CassandraSpaceDataSourceConfigurer {
         return new CassandraSpaceDataSource(fixedPropertyValueSerializer,
                                             dynamicPropertyValueSerializer,
                                             cassandraDataSource,
-                                            hectorClient,
+                cassandraClient,
                                             minimumNumberOfConnections,
                                             maximumNumberOfConnections,
                                             batchLimit,

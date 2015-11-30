@@ -47,6 +47,7 @@ import org.openspaces.persistency.cassandra.meta.data.ColumnFamilyRow;
 import org.openspaces.persistency.cassandra.meta.mapping.SpaceDocumentColumnFamilyMapper;
 import org.openspaces.persistency.cassandra.meta.types.SerializerProvider;
 import org.openspaces.persistency.cassandra.meta.types.ValidatorClassInferer;
+import org.openspaces.persistency.cassandra.meta.types.dynamic.PropertyValueSerializer;
 
 import java.nio.ByteBuffer;
 import java.util.*;
@@ -60,7 +61,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 9.1.1
  * @author Dan Kilman
  */
-public class HectorCassandraClient {
+public class HectorCassandraClient implements CassandraClient {
     
     private static final int                                                 SLEEP_BEFORE_RETRY = 1000 * 11;
 
@@ -199,7 +200,8 @@ public class HectorCassandraClient {
         }
         
         // rows is not empty and the contract says that `rows` should all belong to the same column family.
-        Serializer<?> keySerializer = rows.iterator().next().getColumnFamilyMetadata().getKeySerializer();
+        //Serializer<?> keySerializer = rows.iterator().next().getColumnFamilyMetadata().getKeySerializer();
+        Serializer<?> keySerializer = null; // TODO: only to make it compiling
         Mutator<Object> mutator = createMutator(rows.size(), keySerializer);
         
         for (ColumnFamilyRow row : rows) {
@@ -224,9 +226,11 @@ public class HectorCassandraClient {
                         mutator.addInsertion(row.getKeyValue(),
                                              row.getColumnFamilyMetadata().getColumnFamilyName(),
                                              HFactory.createColumn(columnData.getColumnMetadata().getFullName(),
-                                                                   columnData.getValue(),
+                                                                   null,
+                                                                   //columnData.getValue(),
                                                                    StringSerializer.get(),
-                                                                   columnData.getColumnMetadata().getSerializer()));
+                                                                   keySerializer)); // TODO: only to make it compiling
+                                                                   //columnData.getColumnMetadata().getSerializer()));
                     
                     }
                     break;
@@ -530,8 +534,8 @@ public class HectorCassandraClient {
     private void initMetadataAndAddToCache(SpaceDocumentColumnFamilyMapper mapper,
             ColumnFamilyMetadata metadata)
     {
-        Serializer<Object> fixedPropertyValueSerializer = mapper.getTypeNodeIntrospector()
-                                                                .getFixedPropertyValueSerializer();
+        PropertyValueSerializer fixedPropertyValueSerializer =
+                mapper.getTypeNodeIntrospector().getFixedPropertyValueSerializer();
         if (fixedPropertyValueSerializer != null) {
             metadata.setFixedPropertySerializerForTypedColumn(fixedPropertyValueSerializer);
         }

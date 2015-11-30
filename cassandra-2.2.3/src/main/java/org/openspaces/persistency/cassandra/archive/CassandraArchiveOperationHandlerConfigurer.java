@@ -1,6 +1,7 @@
 package org.openspaces.persistency.cassandra.archive;
 
 import org.openspaces.core.GigaSpace;
+import org.openspaces.persistency.cassandra.CassandraClient;
 import org.openspaces.persistency.cassandra.CassandraConsistencyLevel;
 
 public class CassandraArchiveOperationHandlerConfigurer {
@@ -11,38 +12,6 @@ public class CassandraArchiveOperationHandlerConfigurer {
 	public CassandraArchiveOperationHandlerConfigurer() {
 		handler = new CassandraArchiveOperationHandler();
 	}
-	
-	/**
-	 * @see CassandraArchiveOperationHandler#setKeyspace(String)
-	 */
-	public CassandraArchiveOperationHandlerConfigurer keyspace(String keyspace) {
-		handler.setKeyspace(keyspace);
-		return this;
-	}
-
-	/**
-	 * @see CassandraArchiveOperationHandler#setHosts(String)
-	 */
-	public CassandraArchiveOperationHandlerConfigurer hosts(String hosts) {
-		handler.setHosts(hosts);
-		return this;
-	}
-
-	/**
-	 * @see CassandraArchiveOperationHandler#setPort(Integer)
-	 */
-	public CassandraArchiveOperationHandlerConfigurer port(int port) {
-		handler.setPort(port);
-		return this;
-	}
-
-	/**
-	 * @see CassandraArchiveOperationHandler#setWriteConsistency(org.openspaces.persistency.cassandra.CassandraConsistencyLevel)
-	 */
-	public CassandraArchiveOperationHandlerConfigurer writeConsistency(CassandraConsistencyLevel writeConsistency) {
-		handler.setWriteConsistency(writeConsistency);
-		return this;
-	}
 
 	/**
 	 * @see CassandraArchiveOperationHandler#setGigaSpace(GigaSpace)
@@ -51,6 +20,14 @@ public class CassandraArchiveOperationHandlerConfigurer {
 		handler.setGigaSpace(gigaSpace);
 		return this;
 	}
+
+    /**
+     * @see CassandraArchiveOperationHandler#setCassandraClient(String)
+     */
+    public CassandraArchiveOperationHandlerConfigurer cassandraClient(CassandraClient cassandraClient) {
+        handler.setCassandraClient(cassandraClient);
+        return this;
+    }
 	
 	public CassandraArchiveOperationHandler create() {
 		if (!initialized) {
