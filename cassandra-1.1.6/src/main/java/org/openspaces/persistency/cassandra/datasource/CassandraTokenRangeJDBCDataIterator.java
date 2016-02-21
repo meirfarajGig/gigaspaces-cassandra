@@ -225,7 +225,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
         PreparedStatementData result = new PreparedStatementData();
         
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("SELECT * FROM ").append(StringUtils.quote(columnFamilyMetadata.getColumnFamilyName()));
+        sqlQuery.append("SELECT * FROM ").append(quote(columnFamilyMetadata.getColumnFamilyName()));
         
         // set consistency level 
         sqlQuery.append(" USING CONSISTENCY ").append(readConsistencyLevel.name());
@@ -246,7 +246,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
                 sqlQuery
                     .append(" ")
                     .append(propertyIndex == 1 ? "WHERE" : "AND").append(" ")
-                    .append(StringUtils.quote(entry.getKey())).append(" = ? ");
+                    .append(quote(entry.getKey())).append(" = ? ");
                 
                 result.propertyValues.add(entry.getValue());
                 
@@ -264,7 +264,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
                 Serializer<Object> serailizer = getSerializer(columnName);
                 result.serializers.add(serailizer);
                 
-                selectSqlQuery = selectSqlQuery.replace(columnName, StringUtils.quote(columnName));
+                selectSqlQuery = selectSqlQuery.replace(columnName, quote(columnName));
             }
             
             sqlQuery.append(" WHERE ").append(selectSqlQuery);
@@ -300,7 +300,7 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
                 newQuery.append(" WHERE ");
             }
             
-            newQuery.append(StringUtils.quote(columnFamilyMetadata.getKeyName())).append(" > ? ");
+            newQuery.append(quote(columnFamilyMetadata.getKeyName())).append(" > ? ");
             
             statementData.propertyValues.add(lastToken);
             statementData.serializers.add(getSerializer(columnFamilyMetadata.getKeyName()));
@@ -357,6 +357,10 @@ public class CassandraTokenRangeJDBCDataIterator implements DataIterator<Object>
 
     public int getCurrentTotalCount() {
         return currentTotalCount;
+    }
+
+    private static String quote(String s) {
+        return s == null ? null : "'" + s + "'";
     }
 
     private static class PreparedStatementData {
