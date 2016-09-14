@@ -6,7 +6,7 @@
 
     <groupId>org.openspaces</groupId>
     <artifactId>xap-cassandra</artifactId>
-    <version>11.0.0-14800-RELEASE</version>
+    <version>11.0.0-14830-RELEASE</version>
 
     <repositories>
         <repository>
