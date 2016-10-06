@@ -1,1 +1,1 @@
-http\://openspaces.gigaspaces.org/schema/archive-cassandra=org.openspaces.persistency.cassandra.archive.config.ArchiveCassandraNamespaceHandler
+http\://www.openspaces.org/schema/archive-cassandra=org.openspaces.persistency.cassandra.archive.config.ArchiveCassandraNamespaceHandler
