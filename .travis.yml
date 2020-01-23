@@ -1,8 +1,8 @@
 language: java
 jdk:
-  - oraclejdk7
+  - oraclejdk8
   
-install: "mvn install -f ./cassandra-1.1.6/pom.xml -DskipTests=true"
-script: "mvn test -f ./cassandra-1.1.6/pom.xml"  
+install: "mvn clean install -f ./gigaspaces-cassandra/pom.xml -DskipTests=true"
+script: "mvn test -f ./gigaspaces-cassandra/pom.xml"  
 
 

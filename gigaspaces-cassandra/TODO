@@ -1,0 +1,22 @@
+0 - organising new modules
+  1 - parent module [OK]
+  2 - datasource module [almost ok]
+    2.1 - connection [Ok]
+    2.2 resource and pool [Ok]
+    2.3 (need maping) SpaceDataSource [In the way] 6H +
+
+  3 - mapper module [1 support for Class Mapping, 2]
+
+    3.1 - mapper-processor [Next]
+    3.2 - mapper-runtime [Next]
+  4 -
+2 - replace / pool 2h
+---> minimum for today 
+3 - writing a mapping library to spaceDocument : (meta rewrite)  5h
+  1 - PropertyValueSerializer on CassandraArchiveOperationHandler
+  2 - SpaceDocumentMapper rewrite
+4 - CassandraTokenRangeJDBCDataIterator rewrite 2
+5 - Test rewrite 4h
+--------------------------------------------------
+
+    .withKeyspace("default_ks")

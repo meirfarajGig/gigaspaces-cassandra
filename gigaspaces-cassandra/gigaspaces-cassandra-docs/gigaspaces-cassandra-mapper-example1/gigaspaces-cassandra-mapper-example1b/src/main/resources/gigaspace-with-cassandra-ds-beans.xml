@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:os-core="http://www.openspaces.org/schema/core"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	                    http://www.openspaces.org/schema/core http://www.openspaces.org/schema/15.0/core/openspaces-core.xsd">
+
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:/application.properties"/>
+	<bean id="cassandraDataSource" class="org.openspaces.persistency.cassandra.pool.CassandraDataSource">
+	</bean>
+
+
+	<bean id="cassandraSpaceDataSource" class="org.openspaces.persistency.cassandra.CassandraSpaceDataSourceFactoryBean">
+		<property name="cassandraDataSource" ref="cassandraDataSource" ></property>
+		<property name="minimumNumberOfConnections" value="${cassandra.ds.minconnections}" ></property>
+		<property name="maximumNumberOfConnections" value="${cassandra.ds.maxconnections}" ></property>
+		<property name="batchLimit" value="${cassandra.ds.batchlimit}" ></property>
+		<property name="inventoryPackages">
+			<list value-type="java.util.List">
+				<value>org.openspaces.persistency.cassandra.example1.inventory</value>
+			</list></property>
+	</bean>
+	<bean id="cassandraSpaceSyncEndpoint" class="org.openspaces.persistency.cassandra.CassandraSpaceSynchronizationEndpointFactoryBean">
+	</bean>
+	<os-core:embedded-space id="space" space-name="dataSourceSpace"
+							space-data-source="cassandraSpaceDataSource"  />
+	<os-core:giga-space id="gigaSpace" space="space" />
+</beans>
