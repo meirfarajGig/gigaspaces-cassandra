@@ -38,8 +38,8 @@ public class CassandraSpaceDataSourceConfigurer {
     protected String[]                initialLoadQueryScanningBasePackages;
     protected boolean                 augmentInitialLoadEntries  = true;
 	protected ClusterInfo             clusterInfo                = null;
-    protected List<String>            inventoryPackages          =null;
-
+    protected List<String>            entitiesPackages =null;
+    protected String                  defaultKeyspace = null;
     /**
      * @param cassandraDataSource An instance of {@link CassandraDataSource} configured
      * to use CQL version 2.0.0.
@@ -120,8 +120,13 @@ public class CassandraSpaceDataSourceConfigurer {
         return this;
     }
 
-    public CassandraSpaceDataSourceConfigurer inventoryPackages(List<String> inventoryPackages) {
-        this.inventoryPackages=inventoryPackages;
+    public CassandraSpaceDataSourceConfigurer entitiesPackages(List<String> entitiesPackages) {
+        this.entitiesPackages =entitiesPackages;
+        return this;
+    }
+
+    public CassandraSpaceDataSourceConfigurer defaultKeyspace(String defaultKeyspace) {
+        this.defaultKeyspace=defaultKeyspace;
         return this;
     }
 
@@ -132,7 +137,8 @@ public class CassandraSpaceDataSourceConfigurer {
     public CassandraSpaceDataSource create() {
         return new CassandraSpaceDataSource(
                                             cassandraDataSource,
-                                            inventoryPackages,
+                                            defaultKeyspace,
+                                            entitiesPackages,
                                             minimumNumberOfConnections,
                                             maximumNumberOfConnections,
                                             batchLimit,

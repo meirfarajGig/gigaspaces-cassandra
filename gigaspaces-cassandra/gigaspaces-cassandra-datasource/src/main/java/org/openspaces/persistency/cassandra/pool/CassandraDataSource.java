@@ -2,8 +2,6 @@ package org.openspaces.persistency.cassandra.pool;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.CqlSessionBuilder;
-import com.datastax.oss.driver.api.core.cql.ResultSet;
-import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.shaded.guava.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +15,6 @@ public class CassandraDataSource {
     private final static Logger logger = LoggerFactory.getLogger(CassandraDataSource.class);
     private final String localDatacenter;
     private final Set<InetSocketAddress> contactPointsLst = new HashSet<>();
-    private String releaseVersion=null;
-    private String nativeProtocolVersion=null;
 
     public CassandraDataSource(){
         this.localDatacenter=null;
@@ -78,28 +74,4 @@ public class CassandraDataSource {
         return builder.build();
     }
 
-    private void initVersion(){
-        if(releaseVersion==null||nativeProtocolVersion==null) {
-            try (CqlSession session = createNewSession()) {
-                ResultSet rs = session.execute("select release_version,native_protocol_version from system.local");
-                Row row = rs.one();
-                releaseVersion = row.getString("release_version");
-                nativeProtocolVersion = row.getString("native_protocol_version");
-            }
-            logger.info("retrieve server release version {}",releaseVersion);
-        }
-    }
-    public String getReleaseVersion(){
-        if(releaseVersion==null){
-            initVersion();
-        }
-        return releaseVersion;
-    }
-
-    public String getVersion() {
-        if(nativeProtocolVersion==null){
-            initVersion();
-        }
-        return nativeProtocolVersion;
-    }
 }

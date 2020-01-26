@@ -2,21 +2,23 @@
   1 - parent module [OK]
   2 - datasource module [almost ok]
     2.1 - connection [Ok]
-    2.2 resource and pool [Ok]
-    2.3 (need maping) SpaceDataSource [In the way] 6H +
-
+    2.2 - resource and pool [Ok]
+    2.3 - SpaceDataSource [In the way] 2H + (without the partitioning)
+        2.3.1 - load entity with their helper [OK]
+        2.3.2 - Dataiterator to load from session all the entities [In the way]
+          2.3.2.1 - Load All(discard for the moment partitioning) [In the way]
+          2.3.2.2 -
+        2.3.3 - Initial load [1H]
   3 - mapper module [1 support for Class Mapping, 2]
-
     3.1 - mapper-processor [Next]
     3.2 - mapper-runtime [Next]
-  4 -
-2 - replace / pool 2h
----> minimum for today 
-3 - writing a mapping library to spaceDocument : (meta rewrite)  5h
-  1 - PropertyValueSerializer on CassandraArchiveOperationHandler
-  2 - SpaceDocumentMapper rewrite
-4 - CassandraTokenRangeJDBCDataIterator rewrite 2
-5 - Test rewrite 4h
+  4 - writing a mapping library to spaceDocument : (meta rewrite)  5h
+    4.1 - PropertyValueSerializer on CassandraArchiveOperationHandler
+    4.2 - SpaceDocumentMapper rewrite (?)
+  7
+
+  6 - Test & Documentation rewrite 48h
+
 --------------------------------------------------
 
     .withKeyspace("default_ks")

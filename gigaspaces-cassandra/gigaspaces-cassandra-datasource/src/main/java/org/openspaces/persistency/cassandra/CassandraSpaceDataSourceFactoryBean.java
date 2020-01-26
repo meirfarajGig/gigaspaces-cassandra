@@ -44,6 +44,10 @@ public class CassandraSpaceDataSourceFactoryBean implements
 
     private CassandraSpaceDataSource cassandraSpaceDataSource;
 
+    public void setDefaultKeyspace(String defaultKeyspace){
+        configurer.defaultKeyspace(defaultKeyspace);
+    }
+
     public void setCassandraDataSource(CassandraDataSource cassandraDataSource){
         configurer.cassandraDataSource(cassandraDataSource);
     }
@@ -80,8 +84,8 @@ public class CassandraSpaceDataSourceFactoryBean implements
         configurer.initialLoadQueryScanningBasePackages(initialLoadQueryScanningBasePackages);
     }
 
-    public void setInventoryPackages(List<String> inventoryPackages){
-        configurer.inventoryPackages(inventoryPackages);
+    public void setEntitiesPackages(List<String> entitiesPackages){
+        configurer.entitiesPackages(entitiesPackages);
     }
 
     /**
