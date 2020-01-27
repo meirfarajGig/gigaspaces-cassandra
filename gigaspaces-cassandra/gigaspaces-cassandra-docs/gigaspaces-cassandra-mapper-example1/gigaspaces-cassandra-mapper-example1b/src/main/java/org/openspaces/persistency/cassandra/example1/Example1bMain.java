@@ -13,7 +13,6 @@ public class Example1bMain {
         logger.info("Starting Example1bMain");
         GSLogConfigLoader.getLoader();
         ApplicationContext context = new ClassPathXmlApplicationContext("/gigaspace-with-cassandra-ds-beans.xml");
-
     }
 
 }
