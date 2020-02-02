@@ -15,8 +15,16 @@
  *******************************************************************************/
 package org.openspaces.persistency.cassandra;
 
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.BoundStatement;
+import com.datastax.oss.driver.api.core.cql.BoundStatementBuilder;
+import com.datastax.oss.driver.api.mapper.entity.saving.NullSavingStrategy;
+import com.datastax.oss.driver.internal.mapper.entity.EntityHelperBase;
 import com.gigaspaces.sync.*;
-import org.openspaces.persistency.cassandra.error.SpaceCassandraSynchronizationException;
+import com.j_spaces.kernel.pool.IResourcePool;
+import org.openspaces.persistency.cassandra.pool.ConnectionResource;
+import org.openspaces.persistency.cassandra.types.CassandraTypeInfo;
+import org.openspaces.persistency.cassandra.types.CassandraTypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +39,19 @@ public class CassandraSpaceSynchronizationEndpoint
         extends SpaceSynchronizationEndpoint {
 
     private static Logger logger = LoggerFactory.getLogger(CassandraSpaceSynchronizationEndpoint.class);
+
+    private final IResourcePool<ConnectionResource> connectionPool;
+    private final CassandraTypeRepository cassandraTypeRepository;
+
+    public CassandraSpaceSynchronizationEndpoint(CassandraTypeRepository cassandraTypeRepository) {
+        if(cassandraTypeRepository==null){
+            throw new IllegalArgumentException("cassandraTypeRepository cannot be null");
+        }
+        this.connectionPool = cassandraTypeRepository.getConnectionPool();
+        this.cassandraTypeRepository = cassandraTypeRepository;
+    }
+
+
     @Override
     public void onTransactionSynchronization(TransactionData transactionData) {
         doSynchronization(transactionData.getTransactionParticipantDataItems());
@@ -42,29 +63,23 @@ public class CassandraSpaceSynchronizationEndpoint
     }
 
     private void doSynchronization(DataSyncOperation[] dataSyncOperations) {
-        logger.trace("Starting batch operation");
+        logger.info("Starting batch operation");
 
-        for (DataSyncOperation dataSyncOperation : dataSyncOperations) {
+        ConnectionResource connectionResource = connectionPool.getResource();
+        try {
+            CqlSession session = connectionResource.getSession();
+            for (DataSyncOperation dataSyncOperation : dataSyncOperations) {
+                Object spaceObj = dataSyncOperation.getDataAsObject();
+                CassandraTypeInfo cassandraTypeInfo = cassandraTypeRepository.getInitialMetaLoadEntriesMap().get(spaceObj.getClass().getName());
+                logger.info("spaceObj={} of type={} found cassandraTypeInfo={}", spaceObj, spaceObj.getClass().getName(), cassandraTypeInfo);
+                EntityHelperBase<?> entityHelperBase = cassandraTypeInfo.getEntityHelper();
+                switch(dataSyncOperation.getDataSyncOperationType()) {
+                    case WRITE:
+                        cassandraTypeInfo.insert(session, spaceObj);
 
-            if (!dataSyncOperation.supportsDataAsDocument()) {
-                throw new SpaceCassandraSynchronizationException("Data sync operation does not support asDocument", null);
-            }
-
-            /*
-
-            SpaceDocument spaceDoc = dataSyncOperation.getDataAsDocument();
-            String typeName = spaceDoc.getTypeName();
-            ColumnFamilyMetadata metadata = hectorClient.getColumnFamilyMetadata(typeName);
-
-            if (metadata == null) {
-                metadata = hectorClient.fetchColumnFamilyMetadata(typeName, mapper);
-                if (metadata == null) {
-                    throw new SpaceCassandraDataSourceException("Could not find column family for type name: "
-                            + typeName, null);
+                        //execute(boundStatement);
                 }
-            }
-
-            String keyName = metadata.getKeyName();
+/*           String keyName = metadata.getKeyName();
             Object keyValue = spaceDoc.getProperty(keyName);
 
             if (keyValue == null) {
@@ -113,6 +128,10 @@ public class CassandraSpaceSynchronizationEndpoint
             rows.add(columnFamilyRow);
 
           */
+            }
+        }
+        finally {
+            connectionResource.release();
         }
 
         logger.trace("Performing batch operation");

@@ -16,6 +16,7 @@ public interface ProductDao {
     @Insert
     void save(Product product);
 
+
     @Delete
     void delete(Product product);
 }

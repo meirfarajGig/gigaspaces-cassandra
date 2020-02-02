@@ -1,0 +1,344 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.gigaspaces:gigaspaces-cassandra-parent:pom:15.0.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.junit.jupiter:junit-jupiter-engine:jar -> duplicate declaration of version ${junit5.version} @ line 170, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.openspaces:gigaspaces-cassandra-modules:pom:15.0.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.junit.jupiter:junit-jupiter-engine:jar -> duplicate declaration of version ${junit5.version} @ org.gigaspaces:gigaspaces-cassandra-parent:15.0.0-SNAPSHOT, C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\pom.xml, line 170, column 21
+[WARNING] 'parent.relativePath' of POM org.openspaces:gigaspaces-cassandra-modules:15.0.0-SNAPSHOT (C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\pom.xml) points at org.gigaspaces:gigaspaces-cassandra-parent instead of org.openspaces:gigaspaces-cassandra-parent, please verify your project structure @ line 6, column 13
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.junit.jupiter:junit-jupiter-engine:jar -> duplicate declaration of version ${junit5.version} @ org.openspaces:gigaspaces-cassandra-parent:15.0.0-SNAPSHOT, C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-parent\15.0.0-SNAPSHOT\gigaspaces-cassandra-parent-15.0.0-SNAPSHOT.pom, line 150, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] gigaspaces-cassandra-parent                                        [pom]
+[INFO] gigaspaces-cassandra-mapper-processor                              [jar]
+[INFO] gigaspaces-cassandra-mapper-runtime                                [jar]
+[INFO] gigaspaces-cassandra-datasource                                    [jar]
+[INFO] gigaspaces-cassandra-mapper-example1a                              [jar]
+[INFO] gigaspaces-cassandra-mapper-example1b                              [jar]
+[INFO] gigaspaces-cassandra-mapper-example1                               [pom]
+[INFO] gigaspaces-cassandra-docs                                          [pom]
+[INFO] gigaspaces-cassandra-modules                                       [pom]
+[INFO] 
+[INFO] -------------< org.gigaspaces:gigaspaces-cassandra-parent >-------------
+[INFO] Building gigaspaces-cassandra-parent 15.0.0-SNAPSHOT               [1/9]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-parent ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\target
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-parent ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-parent ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\target\gigaspaces-cassandra-parent.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-parent ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\target\gigaspaces-cassandra-parent-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-parent ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\pom.xml to C:\Users\meirf\.m2\repository\org\gigaspaces\gigaspaces-cassandra-parent\15.0.0-SNAPSHOT\gigaspaces-cassandra-parent-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-parent\target\gigaspaces-cassandra-parent-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\gigaspaces\gigaspaces-cassandra-parent\15.0.0-SNAPSHOT\gigaspaces-cassandra-parent-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --------< org.openspaces:gigaspaces-cassandra-mapper-processor >--------
+[INFO] Building gigaspaces-cassandra-mapper-processor 15.0.0-SNAPSHOT     [2/9]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ gigaspaces-cassandra-mapper-processor ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 2 source files to C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ gigaspaces-cassandra-mapper-processor ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] No tests to run.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target\gigaspaces-cassandra-mapper-processor.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-mapper-processor ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target\gigaspaces-cassandra-mapper-processor-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-mapper-processor ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target\gigaspaces-cassandra-mapper-processor.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-processor\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-processor-15.0.0-SNAPSHOT.jar
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-processor\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-processor-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-processor\target\gigaspaces-cassandra-mapper-processor-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-processor\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-processor-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] ---------< org.openspaces:gigaspaces-cassandra-mapper-runtime >---------
+[INFO] Building gigaspaces-cassandra-mapper-runtime 15.0.0-SNAPSHOT       [3/9]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ gigaspaces-cassandra-mapper-runtime ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ gigaspaces-cassandra-mapper-runtime ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] No tests to run.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-mapper-runtime ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\target\gigaspaces-cassandra-mapper-runtime.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-mapper-runtime ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\target\gigaspaces-cassandra-mapper-runtime-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-mapper-runtime ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\target\gigaspaces-cassandra-mapper-runtime.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-runtime\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-runtime-15.0.0-SNAPSHOT.jar
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-runtime\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-runtime-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-mapper-runtime\target\gigaspaces-cassandra-mapper-runtime-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-runtime\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-runtime-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] -----------< org.openspaces:gigaspaces-cassandra-datasource >-----------
+[INFO] Building gigaspaces-cassandra-datasource 15.0.0-SNAPSHOT           [4/9]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-datasource ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ gigaspaces-cassandra-datasource ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ gigaspaces-cassandra-datasource ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 27 source files to C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target\classes
+[INFO] /C:/spring-data/gigaspaces-cassandra/gigaspaces-cassandra/gigaspaces-cassandra-datasource/src/main/java/org/openspaces/persistency/cassandra/types/CassandraTypeInfo.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/spring-data/gigaspaces-cassandra/gigaspaces-cassandra/gigaspaces-cassandra-datasource/src/main/java/org/openspaces/persistency/cassandra/types/CassandraTypeInfo.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ gigaspaces-cassandra-datasource ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ gigaspaces-cassandra-datasource ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ gigaspaces-cassandra-datasource ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-datasource ---
+[INFO] No tests to run.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-datasource ---
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target\gigaspaces-cassandra-datasource.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-datasource ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target\gigaspaces-cassandra-datasource-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-datasource ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target\gigaspaces-cassandra-datasource.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-datasource\15.0.0-SNAPSHOT\gigaspaces-cassandra-datasource-15.0.0-SNAPSHOT.jar
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-datasource\15.0.0-SNAPSHOT\gigaspaces-cassandra-datasource-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-datasource\target\gigaspaces-cassandra-datasource-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-datasource\15.0.0-SNAPSHOT\gigaspaces-cassandra-datasource-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --------< org.openspaces:gigaspaces-cassandra-mapper-example1a >--------
+[INFO] Building gigaspaces-cassandra-mapper-example1a 15.0.0-SNAPSHOT     [5/9]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ gigaspaces-cassandra-mapper-example1a ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 4 source files to C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ gigaspaces-cassandra-mapper-example1a ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] No tests to run.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target\gigaspaces-cassandra-mapper-example1a.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-mapper-example1a ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target\gigaspaces-cassandra-mapper-example1a-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-mapper-example1a ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target\gigaspaces-cassandra-mapper-example1a.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1a\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1a-15.0.0-SNAPSHOT.jar
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1a\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1a-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1a\target\gigaspaces-cassandra-mapper-example1a-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1a\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1a-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --------< org.openspaces:gigaspaces-cassandra-mapper-example1b >--------
+[INFO] Building gigaspaces-cassandra-mapper-example1b 15.0.0-SNAPSHOT     [6/9]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ gigaspaces-cassandra-mapper-example1b ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 4 source files to C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ gigaspaces-cassandra-mapper-example1b ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 1 source file to C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ gigaspaces-cassandra-mapper-example1b ---
+[WARNING] The parameter forkMode is deprecated since version 2.14. Use forkCount and reuseForks instead.
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-mapper-example1b ---
+[WARNING] The parameter forkMode is deprecated since version 2.14. Use forkCount and reuseForks instead.
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\gigaspaces-cassandra-mapper-example1b.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\gigaspaces-cassandra-mapper-example1b-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-mapper-example1b ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\gigaspaces-cassandra-mapper-example1b.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1b\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1b-15.0.0-SNAPSHOT.jar
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1b\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1b-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\gigaspaces-cassandra-mapper-example1b\target\gigaspaces-cassandra-mapper-example1b-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1b\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1b-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --------< org.openspaces:gigaspaces-cassandra-mapper-example1 >---------
+[INFO] Building gigaspaces-cassandra-mapper-example1 15.0.0-SNAPSHOT      [7/9]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-mapper-example1 ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\target
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-mapper-example1 ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-mapper-example1 ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\target\gigaspaces-cassandra-mapper-example1.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-mapper-example1 ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\target\gigaspaces-cassandra-mapper-example1-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-mapper-example1 ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\gigaspaces-cassandra-mapper-example1\target\gigaspaces-cassandra-mapper-example1-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-mapper-example1\15.0.0-SNAPSHOT\gigaspaces-cassandra-mapper-example1-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --------------< org.openspaces:gigaspaces-cassandra-docs >--------------
+[INFO] Building gigaspaces-cassandra-docs 15.0.0-SNAPSHOT                 [8/9]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-docs ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\target
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-docs ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-docs ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\target\gigaspaces-cassandra-docs.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-docs ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\target\gigaspaces-cassandra-docs-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-docs ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-docs\15.0.0-SNAPSHOT\gigaspaces-cassandra-docs-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\gigaspaces-cassandra-docs\target\gigaspaces-cassandra-docs-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-docs\15.0.0-SNAPSHOT\gigaspaces-cassandra-docs-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] ------------< org.openspaces:gigaspaces-cassandra-modules >-------------
+[INFO] Building gigaspaces-cassandra-modules 15.0.0-SNAPSHOT              [9/9]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ gigaspaces-cassandra-modules ---
+[INFO] Deleting C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\target
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M4:test (default) @ gigaspaces-cassandra-modules ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ gigaspaces-cassandra-modules ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\target\gigaspaces-cassandra-modules.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:test-jar (default) @ gigaspaces-cassandra-modules ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\target\gigaspaces-cassandra-modules-15.0.0-SNAPSHOT-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ gigaspaces-cassandra-modules ---
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\pom.xml to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-modules\15.0.0-SNAPSHOT\gigaspaces-cassandra-modules-15.0.0-SNAPSHOT.pom
+[INFO] Installing C:\spring-data\gigaspaces-cassandra\gigaspaces-cassandra\target\gigaspaces-cassandra-modules-15.0.0-SNAPSHOT-tests.jar to C:\Users\meirf\.m2\repository\org\openspaces\gigaspaces-cassandra-modules\15.0.0-SNAPSHOT\gigaspaces-cassandra-modules-15.0.0-SNAPSHOT-tests.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for gigaspaces-cassandra-modules 15.0.0-SNAPSHOT:
+[INFO] 
+[INFO] gigaspaces-cassandra-parent ........................ SUCCESS [  6.249 s]
+[INFO] gigaspaces-cassandra-mapper-processor .............. SUCCESS [  3.792 s]
+[INFO] gigaspaces-cassandra-mapper-runtime ................ SUCCESS [  0.657 s]
+[INFO] gigaspaces-cassandra-datasource .................... SUCCESS [  4.450 s]
+[INFO] gigaspaces-cassandra-mapper-example1a .............. SUCCESS [  4.063 s]
+[INFO] gigaspaces-cassandra-mapper-example1b .............. SUCCESS [  6.664 s]
+[INFO] gigaspaces-cassandra-mapper-example1 ............... SUCCESS [  0.493 s]
+[INFO] gigaspaces-cassandra-docs .......................... SUCCESS [  0.855 s]
+[INFO] gigaspaces-cassandra-modules ....................... SUCCESS [  0.833 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  28.490 s
+[INFO] Finished at: 2020-02-03T00:38:31+01:00
+[INFO] ------------------------------------------------------------------------

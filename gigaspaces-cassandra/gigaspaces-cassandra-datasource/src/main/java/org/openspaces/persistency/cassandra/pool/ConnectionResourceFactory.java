@@ -16,6 +16,7 @@
 package org.openspaces.persistency.cassandra.pool;
 
 import com.j_spaces.kernel.pool.IResourceFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A {@link IResourceFactory} for obtaining {@link ConnectionResource} instances.
@@ -29,6 +30,7 @@ public class ConnectionResourceFactory
     
     private final CassandraDataSource cassandraDataSource;
 
+    @Autowired
     public ConnectionResourceFactory(CassandraDataSource cassandraDataSource) {
         this.cassandraDataSource = cassandraDataSource;
     }

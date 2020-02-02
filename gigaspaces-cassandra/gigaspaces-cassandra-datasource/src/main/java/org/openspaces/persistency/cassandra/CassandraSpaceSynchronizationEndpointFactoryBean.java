@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.openspaces.persistency.cassandra;
 
+import org.openspaces.persistency.cassandra.types.CassandraTypeRepository;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -30,10 +31,21 @@ import org.springframework.beans.factory.InitializingBean;
 public class CassandraSpaceSynchronizationEndpointFactoryBean implements 
     FactoryBean<CassandraSpaceSynchronizationEndpoint>, InitializingBean {
 
-    private final CassandraSpaceSynchronizationEndpoint cassandraSynchronizationEndpointInterceptor = new CassandraSpaceSynchronizationEndpoint();
+    private CassandraSpaceSynchronizationEndpoint cassandraSynchronizationEndpointInterceptor ;
+    CassandraTypeRepository cassandraTypeRepository;
+
+    public CassandraTypeRepository getCassandraTypeRepository() {
+        return cassandraTypeRepository;
+    }
+
+    public CassandraSpaceSynchronizationEndpointFactoryBean setCassandraTypeRepository(CassandraTypeRepository cassandraTypeRepository) {
+        this.cassandraTypeRepository = cassandraTypeRepository;
+        return this;
+    }
 
     @Override
     public void afterPropertiesSet() {
+        cassandraSynchronizationEndpointInterceptor = new CassandraSpaceSynchronizationEndpoint(cassandraTypeRepository);
     }
     
     @Override

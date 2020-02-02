@@ -31,7 +31,7 @@ public class CassandraQueryIterator  implements DataIterator<Object> {
         this.session=connectionResource.getSession();
         this.resultSet = session.execute(select.asCql());
         this.rowIterator = resultSet.iterator();
-        this.entityHelper = typeInfo.getEntityHelper(session);
+        this.entityHelper = typeInfo.getEntityHelper();
 
     }
 

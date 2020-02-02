@@ -5,10 +5,10 @@
     2.2 - resource and pool [Ok]
     2.3 - SpaceDataSource [In the way] 2H + (without the partitioning)
         2.3.1 - load entity with their helper [OK]
-        2.3.2 - Dataiterator to load from session all the entities [In the way]
-          2.3.2.1 - Load All(discard for the moment partitioning) [In the way]
+        2.3.2 - Dataiterator to load from session all the entities [OK]
+          2.3.2.1 - Load All(discard for the moment partitioning) [OK]
           2.3.2.2 -
-        2.3.3 - Initial load [1H]
+        2.3.3 - Initial load [1H] [OK]
   3 - mapper module [1 support for Class Mapping, 2]
     3.1 - mapper-processor [Next]
     3.2 - mapper-runtime [Next]
@@ -18,7 +18,10 @@
   7
 
   6 - Test & Documentation rewrite 48h
-
+    6.1 - document . []
+       6.1 - Readme.md [1]
+    6.2 - Docs.md
+    6.3 - Example1.md
 --------------------------------------------------
 
     .withKeyspace("default_ks")

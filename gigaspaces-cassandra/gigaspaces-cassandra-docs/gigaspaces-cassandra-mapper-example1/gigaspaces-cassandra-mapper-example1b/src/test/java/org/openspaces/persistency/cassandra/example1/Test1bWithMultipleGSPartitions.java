@@ -57,7 +57,7 @@ public class Test1bWithMultipleGSPartitions {
     @BeforeEach
     public void init() throws IOException {
         IntegratedProcessingUnitContainerProvider provider = new IntegratedProcessingUnitContainerProvider();
-        provider.addConfigLocation("classpath:/gigaspace-with-cassandra-ds-beans-test.xml");
+        provider.addConfigLocation("classpath:/gigaspaces-with-cassandra-ds-beans-test.xml");
         ClusterInfo clusterInfo = new ClusterInfo();
         clusterInfo.setSchema("partitioned");
         clusterInfo.setNumberOfInstances(4);

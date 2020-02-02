@@ -12,15 +12,14 @@
 
 	<context:annotation-config />
 	<context:property-placeholder location="classpath:/application.properties"/>
-	<bean id="cassandraDataSource" class="org.openspaces.persistency.cassandra.pool.CassandraDataSource">
-	</bean>
 	<import resource="classpath:cassandra.xml" />
-
-	<bean id="cassandraSpaceDataSource" class="org.openspaces.persistency.cassandra.CassandraSpaceDataSourceFactoryBean">
+	<bean id="cassandraResourcePool" class="org.openspaces.persistency.cassandra.pool.CassandraResourcePoolFactoryBean">
 		<property name="cassandraDataSource" ref="cassandraDataSource" ></property>
 		<property name="minimumNumberOfConnections" value="${cassandra.ds.minconnections}" ></property>
 		<property name="maximumNumberOfConnections" value="${cassandra.ds.maxconnections}" ></property>
-		<property name="batchLimit" value="${cassandra.ds.batchlimit}" ></property>
+	</bean>
+	<bean id="cassandraTypeRepository" class=" org.openspaces.persistency.cassandra.types.CassandraTypeRepositoryFactoryBean">
+		<property name="connectionPool" ref="cassandraResourcePool" ></property>
 		<property name="entitiesPackages">
 			<util:list  list-class="java.util.ArrayList" value-type="java.lang.String">
 				<value>org.openspaces.persistency.cassandra.example1.entities</value>
@@ -28,10 +27,19 @@
 		</property>
 		<property name="defaultKeyspace" value="inventory"></property>
 	</bean>
-	<bean id="cassandraSpaceSyncEndpoint" class="org.openspaces.persistency.cassandra.CassandraSpaceSynchronizationEndpointFactoryBean">
+
+	<bean id="cassandraSpaceDataSource" class="org.openspaces.persistency.cassandra.datasource.CassandraSpaceDataSourceFactoryBean">
+		<property name="cassandraTypeRepository" ref="cassandraTypeRepository"></property>
+		<property name="batchLimit" value="${cassandra.ds.batchlimit}" ></property>
 	</bean>
+
+	<bean id="cassandraSpaceSyncEndpoint" class="org.openspaces.persistency.cassandra.CassandraSpaceSynchronizationEndpointFactoryBean">
+		<property name="cassandraTypeRepository" ref="cassandraTypeRepository"></property>
+	</bean>
+
 	<os-core:embedded-space id="space" space-name="dataSourceSpace"
-							space-data-source="cassandraSpaceDataSource">
+							space-data-source="cassandraSpaceDataSource"
+							space-sync-endpoint="cassandraSpaceSyncEndpoint">
 		<os-core:properties>
 			<props>
 				<prop key="com.j_spaces.core.container.directory_services.jini_lus.start-embedded-lus">false</prop>

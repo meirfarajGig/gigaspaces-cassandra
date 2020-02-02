@@ -8,19 +8,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 public class CassandraInitialDataLoadIterator implements DataIterator<Object> {
 
     private final Logger logger = LoggerFactory.getLogger(CassandraInitialDataLoadIterator.class);
     private final ConnectionResource connectionResource;
-    private final ConcurrentMap<String, CassandraTypeInfo> initialMetaLoadEntriesMap;
+    private final Map<String, CassandraTypeInfo> initialMetaLoadEntriesMap;
     private boolean released = false;
     private final Iterator<Map.Entry<String, CassandraTypeInfo>> iteratorOnTypeToLoad;
     private CassandraQueryIterator cassandraQueryIterator = null;
 
     public CassandraInitialDataLoadIterator(
-            ConcurrentMap<String, CassandraTypeInfo> initialMetaLoadEntriesMap,
+            Map<String, CassandraTypeInfo> initialMetaLoadEntriesMap,
             ConnectionResource connectionResource
             ){
         this.connectionResource = connectionResource;

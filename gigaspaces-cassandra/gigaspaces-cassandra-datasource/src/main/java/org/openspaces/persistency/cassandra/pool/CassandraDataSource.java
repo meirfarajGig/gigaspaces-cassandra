@@ -12,13 +12,24 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 public class CassandraDataSource {
+
     private final static Logger logger = LoggerFactory.getLogger(CassandraDataSource.class);
     private final String localDatacenter;
     private final Set<InetSocketAddress> contactPointsLst = new HashSet<>();
 
     public CassandraDataSource(){
-        this.localDatacenter=null;
+        this(null,null);
     }
+
+    public CassandraDataSource(String localDatacenter,String... contactPoints){
+        this.localDatacenter=localDatacenter;
+        if(contactPoints!=null) {
+            for (String contactPoint : contactPoints) {
+                contactPointsLst.addAll(fromString(contactPoint, true));
+            }
+        }
+    }
+
 
     private static Collection<InetSocketAddress> fromString(String contactPoint,boolean resolve){
         int idxPort=contactPoint.indexOf(":");
@@ -55,13 +66,6 @@ public class CassandraDataSource {
         } catch (UnknownHostException e) {
             logger.warn("Ignoring invalid contact point {} (unknown host {})", contactPoint, host);
             return Collections.emptySet();
-        }
-    }
-
-    public CassandraDataSource(String localDatacenter,String... contactPoints) throws UnknownHostException {
-        this.localDatacenter=localDatacenter;
-        for(String contactPoint:contactPoints){
-            contactPointsLst.addAll(fromString(contactPoint,true));
         }
     }
 
